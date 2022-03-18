@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  exportTrailingSlash: true,
+  trailingSlash: true,
   env: {
     IPFS_GATEWAY: process.env.IPFS_GATEWAY,
     MORALIS_API_KEY: process.env.MORALIS_API_KEY
