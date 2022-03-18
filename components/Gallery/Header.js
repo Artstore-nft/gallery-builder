@@ -11,7 +11,7 @@ function Header({ router }) {
 }
 function HomeButton() {
     return (
-        <Link href={"/"}>
+        <Link href="/">
             <a className="w-fit h-full flex px-[5px] border-2 rounded-xl">
                 <HomeButtonImageContainer />
                 <HomeButtonTitle />
