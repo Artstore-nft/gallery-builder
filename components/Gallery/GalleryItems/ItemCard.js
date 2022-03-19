@@ -25,7 +25,7 @@ function ItemCardVideo({ source }) {
 }
 
 function ItemCardImage({ source}) {
-    return <Image src={source} layout="fill" />
+    return <img src={source} layout="fill" />
 }
 
 function Info({ item }) {

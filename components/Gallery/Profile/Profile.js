@@ -46,7 +46,7 @@ function ProfileImageBox() {
     )
 }
 function ProfileImage() {
-    return <Image src="https://pbs.twimg.com/profile_images/1479035114394845187/cYeg9mSk_400x400.png" layout="fill" />
+    return <img src="https://pbs.twimg.com/profile_images/1479035114394845187/cYeg9mSk_400x400.png" layout="fill" />
 }
 function ProfileName() {
     return <h1 className="w-full text-4xl text-left font-semibold">Madhawk</h1>
@@ -96,10 +96,10 @@ function ProfileAddressCopyBox({ isCopied }) {
     }
 }
 function ProfileAddressCopyImage() {
-    return <Image src="/images/icons/copy.svg" layout="fill" /> 
+    return <img src="/images/icons/copy.svg" layout="fill" /> 
 }
 function ProfileAddressCheckImage() {
-    return <Image src="/images/icons/checkMark.svg" layout="fill" />
+    return <img src="/images/icons/checkMark.svg" layout="fill" />
 }
 
 function ProfileBio() {
@@ -185,5 +185,5 @@ function ProfileLinkLogoBox({ logo }) {
     )
 }
 function ProfileLinkLogo({ logo }) {
-    return <Image src={logo} layout="fill" />
+    return <img src={logo} layout="fill" />
 }

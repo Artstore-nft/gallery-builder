@@ -40,7 +40,7 @@ function ItemVideo({ source }) {
     return <video autoPlay loop className="w-full h-full object-contain "><source src={source} /></video>
 }
 function ItemImage({ source }) {
-    return <Image src={source} layout="fill" objectFit="contain"/>
+    return <img src={source} layout="fill" objectFit="contain"/>
 }
 
 function ItemInfo({ info }) {

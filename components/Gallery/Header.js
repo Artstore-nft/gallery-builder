@@ -34,7 +34,7 @@ function HomeButtonImageBox() {
     )
 }
 function HomeButtonImage() {
-    return <Image src="https://pbs.twimg.com/profile_images/1479035114394845187/cYeg9mSk_400x400.png" layout="fill" />
+    return <img src="https://pbs.twimg.com/profile_images/1479035114394845187/cYeg9mSk_400x400.png" layout="fill" />
 }
 function HomeButtonTitle() {
     return <h1 className="grid content-center text-lg px-[5px]">Gallery</h1>
