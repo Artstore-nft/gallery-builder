@@ -1,11 +1,19 @@
 import { withRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 function Header({ router }) {
+    const [showHomebutton, setShowHomeButton] = useState(false)
+
+    useEffect(() => {
+        //if user is not on home page, show home button
+        (router.pathname != '/') && setShowHomeButton(true)
+    })
+
     return ( 
         <div className="w-full h-[60px] px-[20px] py-[6px]">
-            {router.pathname != '/' && <HomeButton /> }
+            { showHomebutton && <HomeButton /> }
         </div>
     )
 }

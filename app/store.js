@@ -1,17 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-
+import { localStateMiddleWare, loadLocalState } from './localState'
 import settingsReducer from '../features/settings/settingsSlice'
 import itemsReducer from '../features/items/itemsSlice'
 
-export function makeStore() {
+function makeStore() {    
     return configureStore({
-        reducer: { 
+        reducer: {
             settings: settingsReducer,
             items: itemsReducer,
         },
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStateMiddleWare),
+        preloadedState: loadLocalState()
     })
-  }
+}
   
-const store = makeStore()
-
-export default store
+export default makeStore()

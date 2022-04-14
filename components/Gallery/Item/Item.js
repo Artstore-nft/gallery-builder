@@ -1,9 +1,7 @@
-import Image from "next/image"
-
 // import components
 import Header from "../Header"
 import Footer from "../Footer"
-import { func } from "prop-types"
+import { useEffect, useState } from "react"
 
 export default function Item({ item }) {
     return(
@@ -15,49 +13,83 @@ export default function Item({ item }) {
     )
 }
 function ItemContent({ item }) {
+    const defaultItem = {
+        image: { type: "image" },
+        info: { name: "", collection: "" }
+    }
+    const [displayItem, setItem] = useState(defaultItem)
+
+    useEffect(() => {
+        item && setItem(item)
+    })
+
     return(
         <div className="relative w-full overflow-auto">
-            <ItemImageArea image={item.image} />
-            <ItemInfo info={item.info} />
+            <ItemImageArea image={displayItem.image} />
+            <ItemInfo info={displayItem.info} />
         </div>
     )
 }
 function ItemImageArea({ image }) {
-        return(
-            <div className="relative w-full h-[80vh] p-[70px] bg-[rgb(240,240,240)]" >
-                {image && <ItemImageContainer image={image} />}
-            </div>
-        )
+    return(
+        <div className="relative w-full h-[80vh] p-[70px] bg-[rgb(240,240,240)]" >
+            <ItemImageContainer image={image} />
+        </div>
+    )
 }
 function ItemImageContainer({ image }) {
+    const [showVideo, setShowVideo] = useState(false)
+
+    useEffect(() => {
+        // if image type is video, show video
+        image.type == "video" && setShowVideo(true)
+    })
+
     return(
-        <div className="relative w-[100%] h-[100%]" >
-            { (image.type == 'video') ? <ItemVideo source={image.source} /> :<ItemImage source={image.source} /> }
+        <div className="relative w-[100%] h-[100%] flex justify-center" >
+            { showVideo ? <ItemVideo source={image.source} /> : <ItemImage source={image.source} /> }
         </div>
     ) 
 }
 function ItemVideo({ source }) {
-    return <video autoPlay loop className="w-full h-full object-contain "><source src={source} /></video>
+    return <video className="h-full object-contain" src={source} autoPlay loop muted></video>
 }
 function ItemImage({ source }) {
-    return <img src={source} layout="fill" objectFit="contain"/>
+    return <img className="object-contain" src={source} />
 }
 
 function ItemInfo({ info }) {
+    const [displayAttributes, setAttributes] = useState([])
+    const [showAttributes, setShowAttributes] = useState(false)
+
+    useEffect(() => {
+        // if attributes exist, set attributes and show attributes
+        if (info.attributes) {
+            setAttributes(info.attributes)
+            setShowAttributes(true)  
+        }
+    })
+
     return(
         <div className="relative w-full grid grid-cols-2 gap-[5%] p-[30px]" >
-            <ItemIntro name={info.name} collection={info.collection} description={info.description} />
-            {info.attributes && <ItemAttributes attributes={info.attributes} />}
+            <ItemIntro info={info} />
+            {showAttributes && <ItemAttributes attributes={displayAttributes} />}
         </div>
     )
 }
 
-function ItemIntro({ name, collection, description }) {
+function ItemIntro({ info }) {
+    const [showDescription, setShowDescription] = useState(false)
+
+    useEffect(() => {
+        info.description && setShowDescription(true);
+    })
+
     return(
         <div className="w-full h-fit grid grid-cols-1 gap-y-4" >
-            <ItemName name={name} />
-            <ItemCollection collection={collection} />
-            {description && <ItemDescription description={description} />}
+            <ItemName name={info.name} />
+            <ItemCollection collection={info.collection} />
+            {showDescription && <ItemDescription description={info.description} />}
         </div>
     )
 }

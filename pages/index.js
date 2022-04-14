@@ -1,38 +1,41 @@
-import Head from 'next/head'
-import { useState } from 'react'
-
+// import hooks
+import { useState, useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
-import {
-  selectWalletConnected,
-  selectWalletAddress
-} from '../features/settings/settingsSlice'
 
+// import global selectors and actions
+import {
+  selectWalletAddress,
+  selectWalletConnected
+} from '../features/settings/settingsSlice'
 import {
   loadItems,
-  loadItemsSWR,
+  selectItemsLoaded
 } from '../features/items/itemsSlice'
 
 // import components
 import WalletPrompt from '../components/WalletPrompt/WalletPrompt'
+import Editor from '../components/Editor/Editor'
 import Gallery from '../components/Gallery/Gallery'
 
 export default function Home() {
   const dispatch = useAppDispatch()
   const walletConnected = useAppSelector(selectWalletConnected)
   const walletAddress = useAppSelector(selectWalletAddress)
-  const [itemsLoaded, setItemsLoaded] = useState("FALSE")
+  const itemsLoaded = useAppSelector(selectItemsLoaded)
+  const [showWalletPrompt, setShowWalletPrompt] = useState(false)
 
-  if (walletConnected) {
-    switch(itemsLoaded) {        
-      case "FALSE":
-        //console.log(loadItemsSWR)
-        dispatch(loadItems(walletAddress))
-        setItemsLoaded("TRUE")
+  useEffect(() => {
+    //if wallet is connected, don't show wallet prompt, else show wallet prompt
+    walletConnected ? setShowWalletPrompt(false) : setShowWalletPrompt(true);
 
-      case "TRUE":
-        return <Gallery/>         
-    }
-  } else {
-    return <WalletPrompt/>
-  }
+    // if wallet address is available and items are not yet loaded, load items
+    (walletAddress && (itemsLoaded == "FALSE")) && dispatch(loadItems(walletAddress));
+  })
+
+  return(
+    <div className="relative w-full min-h-screen h-fit">
+      { showWalletPrompt && <WalletPrompt /> }
+      <Gallery />
+    </div>
+  )
 }

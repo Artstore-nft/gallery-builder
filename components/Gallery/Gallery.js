@@ -6,7 +6,7 @@ import Profile from './Profile/Profile'
 
 export default function Gallery() {
     return (
-        <div className="w-screen min-h-screen h-fit grid grid-cols-1 overflow-auto bg-[rgb(253,253,253)]">
+        <div className="relative w-screen min-h-screen h-fit grid grid-cols-1 overflow-auto bg-[rgb(253,253,253)]">
             <Header />
             <GalleryContent />
             <Footer />

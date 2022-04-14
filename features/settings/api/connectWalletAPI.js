@@ -9,6 +9,6 @@ export default async function connectWalletAPI() {
         return { chainId, address }
 
     } else {
-        console.log('need metamask')
+        return undefined
     }
 }

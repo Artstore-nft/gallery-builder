@@ -1,3 +1,43 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+    .editorWalletButton {
+        @apply bg-white px-[12px] py-[6px] rounded-xl overflow-hidden shadow-md cursor-pointer transition ease-in-out hover:-translate-y-[1px]
+    }
+    .editModeButton {
+        @apply bg-rose-100 px-[12px] py-[6px] mt-[20px] rounded-xl overflow-hidden shadow-md cursor-pointer transition ease-in-out hover:-translate-y-[1px]   
+    }
+    .profileName {
+        @apply relative flex gap-4 min-w-[180px] min-h-[40px] w-fit h-fit
+    }
+    .profileMissing {
+        @apply relative flex min-w-[180px] min-h-[40px] w-full h-fit justify-center items-center
+    }
+    .profileButton {
+        @apply justify-self-center w-fit h-fit px-[10px] py-[8px] text-blue-500 rounded-2xl overflow-hidden cursor-pointer hover:bg-blue-100
+    }
+    .profileNameContent {
+        @apply w-full min-h-[40px] text-4xl text-left font-semibold break-all
+    }
+    .profileNameForm {
+        @apply absolute top-[50%] left-0 translate-y-[-50%] h-full w-full flex items-center
+    }
+    .profileNameInput {
+        @apply relative h-full w-full px-[4px] py-[4px] text-4xl text-left font-semibold border-2 rounded-xl outline-gray-300
+    }
+    .profileBio {
+        @apply relative flex gap-4 min-w-[180px] min-h-[40px] w-fit h-fit
+    }
+    .profileBioContent {
+        @apply w-full min-h-[40px] whitespace-pre-wrap
+    }
+    .profileBioForm {
+        @apply absolute top-[50%] left-0 translate-y-[-50%] h-full w-full flex items-center
+    }
+    .profileBioInput {
+        @apply relative min-h-[40px] h-full w-full px-[4px] py-[4px] align-text-top text-left border-2 rounded-xl outline-gray-300 resize-none	
+    }
+
+}
