@@ -1,4 +1,3 @@
-import { func } from "prop-types"
 import { useState, useEffect, createContext, useContext } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { selectWalletAddress, disconnect } from "../../features/settings/settingsSlice" 
@@ -39,7 +38,7 @@ function MenuHeader() {
     )
 }
 function MenuTitle() {
-    return <h1 className="text-lg font">Account</h1>
+    return <h1 className="text-lg font">Wallet</h1>
 }
 function MenuClose() {
     return (

@@ -9,7 +9,6 @@ import {
 
 import { ProfileContext } from './Profile'
 
-
 const linkTypes = [
     {
         id: "foundation",

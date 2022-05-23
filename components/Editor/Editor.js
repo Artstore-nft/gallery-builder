@@ -1,8 +1,10 @@
+import { useSession, signOut, signIn } from "next-auth/react"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { setPreviewMode, setEditMode, selectWalletAddress, selectPreviewMode } from "../../features/settings/settingsSlice"
+import { setPreviewMode, setEditMode, selectWalletAddress, selectPreviewMode, setGithubSession, selectGithub } from "../../features/settings/settingsSlice"
 import { condenseAddress } from "../../library/general"
 import EditorWalletMenu from "./EditorWalletMenu"
+import EditorGithubMenu from "./EditorGithubMenu"
 
 export default function Editor() {
     const previewModeSetting = useAppSelector(selectPreviewMode)
@@ -18,7 +20,8 @@ export default function Editor() {
 
 function EditorEditMode() {
     return (
-        <div className="relative w-screen h-[70px] px-[20px] flex gap-x-4 justify-end items-center bg-rose-100 z-10">
+        <div className="relative w-screen h-[70px] px-[20px] bg-rose-100 z-10 shadow-md flex gap-x-4 justify-end items-center">
+            <EditorGithub />
             <EditorWallet />
             <EditorPreview />
         </div>
@@ -39,6 +42,66 @@ function EditorPreviewMode() {
     )
 }
 
+function EditorGithub() {
+    const dispatch = useAppDispatch()
+    const { data: session } = useSession()
+
+    useEffect(() => {
+        session && dispatch(setGithubSession(session))
+
+        console.log(session)
+    }, [session])
+
+    return session ? <EditorGithubSignedIn /> : <EditorGithubSignedOut />
+}
+
+function EditorGithubSignedIn() {
+    const github = useAppSelector(selectGithub)
+    const [showMenu, setShowMenu] = useState(false)
+
+    const handleOpenMenu = () => {
+        setShowMenu(true)
+    }
+
+    const handleCloseMenu = () => {
+        setShowMenu(false)
+    }
+
+    return (
+        <div>
+            <EditorGithubSignOutButton handleOpenMenu={handleOpenMenu} />
+            {showMenu && <EditorGithubMenu handleCloseMenu={handleCloseMenu} />}
+        </div>
+    )
+}
+
+function EditorGithubSignOutButton({ handleOpenMenu }) {
+    return (
+        <button onClick={handleOpenMenu} className="editorWalletButton relative flex gap-x-2 items-center">
+            Connected
+        </button>
+    )
+}
+
+function EditorGithubSignedOut() {
+    return (
+        <button onClick={() => signIn("github")} className="editorWalletButton relative flex gap-x-2 items-center">
+            Connect to Github
+            <EditorGithubLogoContainer /> 
+        </button>
+    ) 
+}
+
+function EditorGithubLogoContainer() {
+    return (
+        <div className="relative flex-inline max-h-[24px] h-full py-[1px]">
+            <EditorGithubLogo />
+        </div>
+    )
+}
+function EditorGithubLogo() {
+    return <img src="/images/logos/github.svg" className="relative h-[22px] object-contain" />
+}
 
 function EditorWallet() {
     const walletAddress = useAppSelector(selectWalletAddress)

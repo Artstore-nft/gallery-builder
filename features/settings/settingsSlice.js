@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import connectWalletAPI from './api/connectWalletAPI'
+import addGalleryAPI from './api/addGalleryAPI'
 
 import { deleteLocalState } from '../../app/localState'
 
@@ -14,6 +15,10 @@ export const initialSettingsState = {
         name: null,
         bio: null,
         links: [],
+    },
+    github: {
+        session: null,
+        repo: null
     }
 }
 
@@ -22,6 +27,16 @@ export const connectWallet = createAsyncThunk(
     'settings/connectWallet',
     async () => {
         return (await connectWalletAPI()) || Promise.reject()
+    }
+)
+
+export const addGallery = createAsyncThunk(
+    'settings/addGallery',
+    async (arg, { getState }) => {
+        const state = getState()
+        const accessToken = state.settings.github.session.accessToken
+        
+        return (await addGalleryAPI(accessToken)) || Promise.reject()
     }
 )
   
@@ -68,6 +83,9 @@ export const settingsSlice = createSlice({
         },
         removeProfileImage: (state, action) => {
             state.profile.image = null
+        },
+        setGithubSession: (state, action) => {
+            state.github.session = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -81,7 +99,7 @@ export const settingsSlice = createSlice({
 })
 
 // export actions
-export const { disconnect, setPreviewMode, setEditMode, setProfileName, setProfileBio, addProfileLink, removeProfileLink, reorderProfileLinks, setProfileImage, removeProfileImage } = settingsSlice.actions
+export const { disconnect, setPreviewMode, setEditMode, setProfileName, setProfileBio, addProfileLink, removeProfileLink, reorderProfileLinks, setProfileImage, removeProfileImage, setGithubSession } = settingsSlice.actions
 
 // export selectors
 export const selectChainId = (state) => state.settings.chainId
@@ -89,6 +107,7 @@ export const selectWalletAddress = (state) => state.settings.walletAddress
 export const selectWalletConnected = (state) => state.settings.walletConnected
 export const selectPreviewMode = (state) => state.settings.previewMode
 export const selectProfile = (state) => state.settings.profile
+export const selectGithub = (state) => state.settings.github
 
 // export reducer
 export default settingsSlice.reducer

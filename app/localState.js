@@ -17,6 +17,7 @@ function isStateChanging(actionType) {
 }
 
 function saveLocalState(state) {
+    console.log(state)
     window.localStorage.setItem("state", JSON.stringify(state))
 }
 
