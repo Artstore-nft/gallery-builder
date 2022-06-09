@@ -35,5 +35,5 @@ export function loadLocalState(): State | undefined {
 
 export function deleteLocalState(): void {
     window.localStorage.clear()
-    window.location = "/"
+    window.location.href = "/"
 }
