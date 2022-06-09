@@ -12,7 +12,9 @@ export default async function getShaAPI(accessToken: string, owner: string, repo
             path: path
         })
 
-        return response.data.sha
+        const data = response.data as any
+
+        return data.sha
     } catch(e) {
         console.log(e)
     }
