@@ -37,7 +37,7 @@ export default function Editor() {
 
 function EditorEditMode() {
     return (
-        <div className="relative w-screen h-[70px] px-[20px] bg-rose-100 z-10 shadow-md flex gap-x-4 justify-end items-center">
+        <div className="relative w-screen h-[70px] px-[20px] bg-[#33A1E4] z-10 shadow-md flex gap-x-4 justify-end items-center">
             <EditorGithub />
             <EditorWallet />
             <EditorPreview />

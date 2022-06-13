@@ -7,7 +7,7 @@
         @apply bg-white px-[12px] py-[6px] rounded-xl overflow-hidden shadow-md cursor-pointer transition ease-in-out hover:-translate-y-[1px]
     }
     .editModeButton {
-        @apply bg-rose-100 px-[12px] py-[6px] mt-[20px] rounded-xl overflow-hidden shadow-md cursor-pointer transition ease-in-out hover:-translate-y-[1px]   
+        @apply text-white bg-[#33A1E4] px-[12px] py-[6px] mt-[20px] rounded-xl overflow-hidden shadow-md cursor-pointer transition ease-in-out hover:-translate-y-[1px]   
     }
     .profileName {
         @apply relative flex gap-4 min-w-[180px] min-h-[40px] w-fit h-fit
