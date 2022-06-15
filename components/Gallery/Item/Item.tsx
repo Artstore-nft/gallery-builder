@@ -124,6 +124,7 @@ function ItemInfo({ info }: ItemInfoProps) {
     useEffect(() => {
         // if attributes exist, set attributes and show attributes
         if (info.attributes) {
+
             setAttributes(info.attributes)
             setShowAttributes(true)  
         }

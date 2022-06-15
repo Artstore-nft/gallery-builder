@@ -16,7 +16,7 @@ export type ItemType = {
     token_hash?: string
     token_id: string
     token_uri: string
-    metadata?: ItemMetadata
+    metadata?: ItemMetadata | string
     id?: ItemId
     image?: ItemImage
     info?: ItemInfo
@@ -59,6 +59,12 @@ export interface ItemsState {
     order: "newest" | "oldest"
 }
 
+export const defaultMetadata: ItemMetadata = {
+    name: "",
+    description: "",
+    image: ""
+}
+
 export const defaultItem: ItemType = {
     amount: "",
     block_number: "",
@@ -74,11 +80,7 @@ export const defaultItem: ItemType = {
     token_hash: "",
     token_id: "",
     token_uri: "",
-    metadata: {
-        name: "",
-        description: "",
-        image: ""
-    },
+    metadata: defaultMetadata,
     id: {
         address: "",
         id: ""
